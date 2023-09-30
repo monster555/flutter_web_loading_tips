@@ -1,8 +1,8 @@
-# Flutter Web Smooth Loading
+# Flutter Web Loading Tips
 
+https://github.com/monster555/flutter_web_loading_tips/assets/32662133/83df94b8-fa19-4a89-a646-1ad55765a373
 
-https://github.com/monster555/flutter_web_smooth_loading/assets/32662133/34566bb5-7675-43b2-9c31-e3a5efa9d41b
-
+<a href="https://www.buymeacoffee.com/danicoy" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 ## Introduction
 
@@ -21,7 +21,7 @@ To get started with improving your Flutter Web loading experience, follow these 
 1. **Clone the Repository**: Begin by cloning this repository to your local development environment.
 
   ```shell
-  git clone https://github.com/monster555/flutter_web_smooth_loading.git
+  git clone https://github.com/monster555/flutter_web_loading_tips.git
   ```
 
 2. Enhance Your App: Apply the techniques learned from the guide to your Flutter Web project, and watch as your loading experience becomes smoother and more professional.
@@ -153,4 +153,4 @@ In your `index.html`, reference the `style.css` file to apply the defined styles
 Follow these steps diligently to implement a seamless and professional loading experience in your Flutter Web application.
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
