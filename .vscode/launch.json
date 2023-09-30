@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations":[
+        {
+            "name": "Flutter Web Loading Tips",
+            "request": "launch",
+            "type": "dart",
+            "args":[
+                "-d",
+                "chrome",
+                "--web-renderer",
+                "canvaskit",
+            ]
+        }
+    ]
+}

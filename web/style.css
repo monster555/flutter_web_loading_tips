@@ -1,0 +1,47 @@
+/* Styles for the body element */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #fff;
+}
+
+/* Styles for the progress bar container */
+.progress-container {
+    width: 300px;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: opacity 0.25s ease-out;
+}
+
+/* Styles for the progress bar */
+.progress-bar {
+    display: block;
+    height: 100%;
+    background-color: #6a6a6a;
+    width: 0;
+    transition: width 0.5s ease;
+}
+
+/* CSS for a fade-in animation */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+/* Keyframes for the fadeIn animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    60% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="$FLUTTER_BASE_HREF" />
+
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="A new Flutter project." />
+
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="flutter_web_loading_tips"
+    />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <title>Flutter Web Loading Tips</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="style.css" /> 
+
+    <script>
+      // The value below is injected by flutter build, do not touch.
+      const serviceWorkerVersion = null;
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer></script>
+  </head>
+
+  <body>
+    <!-- Create a progress bar container with a nested progress bar -->
+    <div class="progress-container" id="progressbar">
+      <div class="progress-bar" id="progress"></div>
+    </div>
+    <script>
+      /**
+       * Creates a Promise that resolves after a specified delay.
+       *
+       * @param {number} delay - The delay duration in milliseconds.
+       * @returns {Promise} A Promise that resolves after the specified delay.
+       */
+      function addDelay(delay) {
+        return new Promise((resolve) => setTimeout(resolve, delay));
+      }
+
+      // Get references to the progress bar container and the progress bar element.
+      const progress = document.getElementById("progress");
+      const progressBar = document.getElementById("progressbar");
+
+      // Set the initial width of the progress bar to 0%.
+      progress.style.width = `0%`;
+
+      // Listen for the "load" event of the window.
+      window.addEventListener("load", async function (ev) {
+        // Set an initial progress of 33% when the page loads.
+        progress.style.width = `33%`;
+
+        // Download main.dart.js and initialize the Flutter engine.
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: serviceWorkerVersion,
+          },
+          onEntrypointLoaded: async function (engineInitializer) {
+            // Update progress to 66% after the entry point is loaded.
+            progress.style.width = `66%`;
+
+            // Initialize the Flutter engine.
+            const appRunner = await engineInitializer.initializeEngine();
+
+            // Set progress to 99% before adding a delay.
+            progress.style.width = `99%`;
+
+            // Add a delay using the addDelay function.
+            await addDelay(500);
+
+            // Hide the progress bar by reducing its opacity.
+            // This will create the fade out effect by animating the opacity.
+            progressBar.style.opacity = 0;
+
+            // Run the Flutter app.
+            await appRunner.runApp();
+
+            // Add a fade-in effect to the Flutter view element.
+            document.querySelector("flutter-view").classList.add("fade-in");
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
