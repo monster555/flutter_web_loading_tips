@@ -27,11 +27,12 @@ To get started with improving your Flutter Web loading experience, follow these 
 2. Enhance Your App: Apply the techniques learned from the guide to your Flutter Web project, and watch as your loading experience becomes smoother and more professional.
 
 ## See How Smooth the Loading Experience is on FaceFolio
+
 This is one of my portfolio projects. To see the smooth loading experience in action, visit the [FaceFolio homepage](https://facefolio.dctech.dev).
 
 ## Step-by-Step
 
-Enhancing the loading experience in your Flutter Web application involves the following steps. Be sure to follow each step meticulously for a polished result. The provided code snippets should be incorporated into your project as described.
+Improving the loading experience in your Flutter Web application involves just a few steps. Follow each step closely to ensure proper implementation. The provided code snippets should be integrated into your project as described.
 
 ### Step 1: Adding Progress Bar Elements in index.html
 
@@ -39,58 +40,68 @@ In your `index.html` file, add the following `<div>` elements to display the pro
 
 ```html
 <!-- Create a progress bar container with a nested progress bar -->
-<div class="progress-container" id="progressbar">
-  <div class="progress-bar" id="progress"></div>
+<div class="progress-container" id="progress">
+  <div class="progress-bar" id="progressbar"></div>
 </div>
 ```
-### Step 2: Modifying Script in `index.html`
-Inside the `<script>` tag in your `index.html`, make the following modifications to update the progress bar as the Flutter Engine loads:
+
+### Step 2: Adding the Script in `flutter_bootstrap.js`
+
+To ensure the proper initialization of your Flutter application using the new initialization method available in Flutter 3.22 and later, you will need to add the appropriate script to your `flutter_bootstrap.js` file. Below is an example of how your `flutter_bootstrap.js` file could look with everything in place:
 
 ```javascript
-// Get references to the progress bar container and the progress bar element.
-const progress = document.getElementById("progress");
-const progressBar = document.getElementById("progressbar");
+    /**
+    * This function creates a delay of 500 milliseconds.
+    *
+    * @returns {Promise} A Promise that resolves after the delay.
+    */
+    function addDelay() {
+        return new Promise((resolve) => setTimeout(resolve, 500));
+    }
 
-// Set the initial width of the progress bar to 0%.
-progress.style.width = `0%`;
+    // Get the progress and progressBar elements from the DOM
+    const progress = document.getElementById("progress");
+    const progressBar = document.getElementById("progressbar");
 
-// Listen for the "load" event of the window.
-window.addEventListener("load", async function (ev) {
-  // Set an initial progress of 33% when the page loads.
-  progress.style.width = `33%`;
+    // Initialize the width of the progress bar to 0%
+    progress.style.width = `0%`;
 
-  // Download main.dart.js and initialize the Flutter engine.
-  _flutter.loader.loadEntrypoint({
-    serviceWorker: {
-      serviceWorkerVersion: serviceWorkerVersion,
-    },
-    onEntrypointLoaded: async function (engineInitializer) {
-      // Update progress to 66% after the entry point is loaded.
-      progress.style.width = `66%`;
+    {{flutter_js}}
 
-      // Initialize the Flutter engine.
-      const appRunner = await engineInitializer.initializeEngine();
+    progress.style.width = `33%`;
 
-      // Set progress to 99% before adding a delay.
-      progress.style.width = `99%`;
+    {{flutter_build_config}}
 
-      // Add a delay using the addDelay function.
-      await addDelay(500);
+    // Load the Flutter engine
+    _flutter.loader.load({
+        onEntrypointLoaded: async function(engineInitializer) {
+            // Update the progress bar to 66% after the engine is loaded
+            progressBar.style.width = `66%`;
 
-      // Hide the progress bar by reducing its opacity.
-      progressBar.style.opacity = 0;
-
-      // Run the Flutter app.
-      await appRunner.runApp();
-
-      // Add a fade-in effect to the Flutter view.
-      document.querySelector("flutter-view").classList.add("fade-in");
-    },
-  });
-});
+            // Initialize the Flutter engine.
+            const appRunner = await engineInitializer.initializeEngine();
+    
+            // Set progress to 100% before adding a delay.
+            progressBar.style.width = `100%`;
+            
+            // Add a delay bofreo running the app to create a smooth crossfade effect.
+            await addDelay();
+            
+            // Hide the progress bar by reducing its opacity.
+            // This will create the fade out effect by animating the opacity.
+            progress.style.opacity = 0;
+    
+            // Run the Flutter app.
+            await appRunner.runApp();
+    
+            // Add a fade-in effect to the Flutter view element.
+            document.querySelector("flutter-view").classList.add("fade-in");
+        }
+    });
 ```
 
 ### Step 3: Creating `style.css`
+
 Create a `style.css` file with the following content to style the progress bar and create the fade-in effect:
 
 ```css
@@ -144,13 +155,15 @@ body {
 ```
 
 ### Step 4: Referencing `style.css`
+
 In your `index.html`, reference the `style.css` file to apply the defined styles:
 
 ```html
 <link rel="stylesheet" href="style.css" />
 ```
 
-Follow these steps diligently to implement a seamless and professional loading experience in your Flutter Web application.
+By following these steps, you can implement a smooth loading experience in your Flutter Web application.
 
 ## License
+
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
