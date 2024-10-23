@@ -47,7 +47,9 @@ In your `index.html` file, add the following `<div>` elements to display the pro
 
 ### Step 2: Adding the Script in `flutter_bootstrap.js`
 
-To ensure the proper initialization of your Flutter application using the new initialization method available in Flutter 3.22 and later, you will need to add the appropriate script to your `flutter_bootstrap.js` file. Below is an example of how your `flutter_bootstrap.js` file could look with everything in place:
+To ensure the proper initialization of your Flutter app using the new method available in Flutter 3.22 and later, you need to update the `web/flutter_bootstrap.js` file (not the `build/web/flutter_bootstrap.js`, which is auto-generated during the build process and will be overwritten).
+
+Below is an example of how your `web/flutter_bootstrap.js` file should look with the necessary changes in place:
 
 ```javascript
     /**
